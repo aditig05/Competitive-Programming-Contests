@@ -2,14 +2,24 @@
 using namespace std;
 int main(){
     string s; cin>>s;
-    bool f=false;
-    if(islower(s[0])) s[0]=toupper(s[0]);
-    for(int i=0; i<s.size(); i++){
-        if(isupper(s[i])) f=true;
-        else if(islower(s[0]) && isupper(s[i])) f=true;
+    int n=s.size();
+    int cnt=0;
+    for(int i=1; i<n; i++){
+        if(isupper(s[i])){
+            cnt++;
+        }
     }
-    if()
-    for(auto i:s){
-        cout<<i;
+    if(cnt==n-1){
+        transform(s.begin()+1,s.end(),s.begin()+1,::tolower);
+        if(isupper(s[0])){
+            s[0] = char((s[0]-'A')+'a');
+        }
+        else{
+            s[0] = char((s[0]-'a')+'A');
+        }
+        cout << s << "\n";
+    }
+    else{
+        cout << s << "\n";
     }
 }

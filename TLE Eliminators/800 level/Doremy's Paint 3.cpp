@@ -23,7 +23,7 @@ int main() {
         if(n==0 || n==1 || n==2 || mp.size()==1){
             cout << "YES" << endl;
         }
-        else if(mp.size()==2 && (mp.begin()->second ==n/2 || mp.begin()->second ==n/2+1)) {
+        else if(mp.size()==2 && (mp.begin()->second <= (n + 1)/2 && mp.begin()->second >= n/2)) {
             cout << "YES\n";
         }
         else{
