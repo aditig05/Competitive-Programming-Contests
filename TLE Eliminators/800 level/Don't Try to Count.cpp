@@ -17,54 +17,31 @@ int main() {
         cin >> x;
         string s;
         cin >> s;
+        int ans = INT_MAX;
 
-        int i = 0, j = 0;
-        int cnt = 0;
-
-        // Set a maximum limit to prevent infinite loops
-        const int MAX_DOUBLINGS = 20;  // Limit the number of times `x` can double
-        const int MAX_LENGTH = 1e6;   // Maximum allowed length for `x`
-
-        while (j < m) {
-            if (x.size() > MAX_LENGTH) {
-                cnt = -1;
-                break;
-            }
-            
-            if (x[i] != s[j]) {
-                if (i < n - 1) {
-                    i++;
-                    j = 0;
-                } else {
-                    cnt++;
-                    if (cnt > MAX_DOUBLINGS) {  // If `cnt` exceeds limit, terminate
-                        cnt = -1;
-                        break;
+        for(int i = 0; i < n; i++){
+            if(x[i] == s[0]){
+                int cnt = 0;
+                int p1 = i, p2 = 0, balance = (n - i), upd = n;
+                while(p2 < m && x[p1] == s[p2]){
+                    p1 = (p1 + 1) % n;
+                    p2++;
+                    balance--;
+                    if(balance == 0){
+                        if(p2 < m){
+                            cnt++;
+                        }
+                        balance = upd;
+                        upd *= 2;
                     }
-                    x = x + x;
-                    n = x.size();
-                    i++;
-                    j = 0;
                 }
-            } else {
-                if (i < n - 1) {
-                    i++;
-                    j++;
-                } else {
-                    cnt++;
-                    if (cnt > MAX_DOUBLINGS) {  // If `cnt` exceeds limit, terminate
-                        cnt = -1;
-                        break;
-                    }
-                    x = x + x;
-                    n = x.size();
-                    i++;
-                    j++;
+                if(p2 == m){
+                    ans = min(ans, cnt);
                 }
             }
         }
 
-        cout << cnt << "\n";
+        cout << (ans == INT_MAX ? -1 : ans) << "\n";
     }
 
     return 0;
